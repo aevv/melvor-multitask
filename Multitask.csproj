@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="umitoo.local.props" Condition="Exists('umitoo.local.props')" />
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <!-- the built mod is this project's dll and mod.json, nothing else -->
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+    <DebugType>embedded</DebugType>
+    <!-- the same source gives the same dll on any machine -->
+    <Deterministic>true</Deterministic>
+    <PathMap>$(MSBuildProjectDirectory)=/_/</PathMap>
+  </PropertyGroup>
+  <Target Name="UmitooPaths" BeforeTargets="ResolveAssemblyReferences" Condition="'$(GameData)' == '' Or '$(UmitooHost)' == ''">
+    <Error Text="The game or the mod host was not found. Build with `umitoo build`, which finds them and writes umitoo.local.props." />
+  </Target>
+  <!-- the game's and the host's own copies are used when the mod runs: none is copied into it -->
+  <ItemGroup>
+    <Reference Include="GodotSharp"><HintPath>$(GameData)/GodotSharp.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="GamesByMalcs.Melvor2"><HintPath>$(GameData)/GamesByMalcs.Melvor2.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Umitoo.Api"><HintPath>$(UmitooHost)/Umitoo.Api.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="Umitoo.Core"><HintPath>$(UmitooHost)/Umitoo.Core.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="0Harmony"><HintPath>$(UmitooHost)/0Harmony.dll</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mod.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

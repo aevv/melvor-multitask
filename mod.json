@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "id": "aevv.multitask",
+  "name": "Multitasking",
+  "version": "0.2.0",
+  "author": "aevv",
+  "description": "Train up to 5 skills at the same time.",
+  "license": "MIT",
+  "source": "https://github.com/aevv/melvor-multitask",
+  "host": ">=0.2",
+  "assembly": "Multitask.dll",
+  "game": ">=26724394",
+  "tags": [
+    "cheat"
+  ]
+}
